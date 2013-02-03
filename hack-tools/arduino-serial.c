@@ -1,9 +1,9 @@
 /*
  * Arduino-serial
  * --------------
- * 
+ *
  * A simple command-line example program showing how a computer can
- * communicate with an Arduino board. Works on any POSIX system (Mac/Unix/PC) 
+ * communicate with an Arduino board. Works on any POSIX system (Mac/Unix/PC)
  *
  *
  * Compile with something like:
@@ -13,8 +13,8 @@
  * Copyleft (c) 2006, Tod E. Kurt, tod@todbot.com
  * http://todbot.com/blog/
  *
- * 
- * Updated 8 December 2006: 
+ *
+ * Updated 8 December 2006:
  *  Justin McBride discoevered B14400 & B28800 aren't in Linux's termios.h.
  *  I've included his patch, but commented out for now.  One really needs a
  *  real make system when doing cross-platform C and I wanted to avoid that
@@ -30,7 +30,7 @@
  */
 
 #include <stdio.h>    /* Standard input/output definitions */
-#include <stdlib.h> 
+#include <stdlib.h>
 #include <stdint.h>   /* Standard types */
 #include <string.h>   /* String function definitions */
 #include <unistd.h>   /* UNIX standard function definitions */
@@ -64,7 +64,7 @@ void usage(void) {
     "\n");
 }
 
-int main(int argc, char *argv[]) 
+int main(int argc, char *argv[])
 {
     int fd = 0;
     char serialport[256];
@@ -88,7 +88,7 @@ int main(int argc, char *argv[])
         {"num",        required_argument, 0, 'n'},
         {"delay",      required_argument, 0, 'd'}
     };
-    
+
     while(1) {
         opt = getopt_long (argc, argv, "hp:b:s:rn:d:",
                            loptions, &option_index);
@@ -127,9 +127,9 @@ int main(int argc, char *argv[])
         }
     }
 
-    exit(EXIT_SUCCESS);    
+    exit(EXIT_SUCCESS);
 } // end main
-    
+
 int serialport_writebyte( int fd, uint8_t b)
 {
     int n = write(fd,&b,1);
@@ -142,7 +142,7 @@ int serialport_write(int fd, const char* str)
 {
     int len = strlen(str);
     int n = write(fd, str, len);
-    if( n!=len ) 
+    if( n!=len )
         return -1;
     return 0;
 }
@@ -151,7 +151,7 @@ int serialport_read_until(int fd, char* buf, char until)
 {
     char b[1];
     int i=0;
-    do { 
+    do {
         int n = read(fd, b, 1);  // read a char at a time
         if( n==-1) return -1;    // couldn't read
         if( n==0 ) {
@@ -173,7 +173,7 @@ int serialport_init(const char* serialport, int baud)
 {
     struct termios toptions;
     int fd;
-    
+
     //fprintf(stderr,"init_serialport: opening port %s @ %d bps\n",
     //        serialport,baud);
 
@@ -182,7 +182,7 @@ int serialport_init(const char* serialport, int baud)
         perror("init_serialport: Unable to open port ");
         return -1;
     }
-    
+
     if (tcgetattr(fd, &toptions) < 0) {
         perror("init_serialport: Couldn't get term attributes");
         return -1;
@@ -222,7 +222,7 @@ int serialport_init(const char* serialport, int baud)
     // see: http://unixwiz.net/techtips/termios-vmin-vtime.html
     toptions.c_cc[VMIN]  = 0;
     toptions.c_cc[VTIME] = 20;
-    
+
     if( tcsetattr(fd, TCSANOW, &toptions) < 0) {
         perror("init_serialport: Couldn't set term attributes");
         return -1;
