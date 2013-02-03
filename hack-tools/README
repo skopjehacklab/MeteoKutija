@@ -1,0 +1,9 @@
+quick compile in the OpenWrt source directory:
+
+
+    make tools/install
+    make toolchain/install
+
+    export STAGING_DIR=$PWD/staging_dir
+    ./staging_dir/toolchain-mips_r2_gcc-4.6-linaro_uClibc-0.9.33.2/bin/mips-openwrt-linux-uclibc-gcc \
+         arduino-serial.c -o arduino-serial
