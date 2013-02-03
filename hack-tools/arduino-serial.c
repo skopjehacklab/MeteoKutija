@@ -113,15 +113,25 @@ int main(int argc, char *argv[])
         case 'n':
             n = strtol(optarg, NULL, 10); // convert string to number
             rc = serialport_writebyte(fd, (uint8_t)n);
-            if(rc==-1) return -1;
+            if(rc==-1) {
+                printf("write failed\n");
+                return -1;
+            }
             break;
         case 's':
             strcpy(buf,optarg);
             rc = serialport_write(fd, buf);
-            if(rc==-1) return -1;
+            if(rc==-1) {
+                printf("write failed\n");
+                return -1;
+            }
             break;
         case 'r':
-            serialport_read_until(fd, buf, '\n');
+            rc = serialport_read_until(fd, buf, '\n');
+            if(rc==-1) {
+                printf("read failed\n");
+                return -1;
+            }
             printf("read: %s\n",buf);
             break;
         }
