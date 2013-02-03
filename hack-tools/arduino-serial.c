@@ -68,7 +68,7 @@ int main(int argc, char *argv[])
 {
     int fd = 0;
     char serialport[256];
-    int baudrate = B9600;  // default
+    int baudrate = B115200;  // default
     char buf[256];
     int rc,n;
 
