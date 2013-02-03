@@ -69,7 +69,8 @@ int main(int argc, char *argv[])
     int fd = 0;
     char serialport[256];
     int baudrate = B115200;  // default
-    char buf[256];
+    char rbuf[256];
+    char wbuf[256];
     int rc,n;
 
     if (argc==1) {
@@ -119,20 +120,20 @@ int main(int argc, char *argv[])
             }
             break;
         case 's':
-            strcpy(buf,optarg);
-            rc = serialport_write(fd, buf);
+            strcpy(wbuf,optarg);
+            rc = serialport_write(fd, wbuf);
             if(rc==-1) {
                 printf("write failed\n");
                 return -1;
             }
             break;
         case 'r':
-            rc = serialport_read_until(fd, buf, '\n');
+            rc = serialport_read_until(fd, rbuf, '\n');
             if(rc==-1) {
                 printf("read failed\n");
                 return -1;
             }
-            printf("read: %s\n",buf);
+            printf("read: %s\n", rbuf);
             break;
         }
     }
