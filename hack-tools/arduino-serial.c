@@ -159,17 +159,18 @@ int serialport_write(int fd, const char* str)
 
 int serialport_read_until(int fd, char* buf, char until)
 {
-    char b[1];
+    char b;
     int i=0;
     do {
-        int n = read(fd, b, 1);  // read a char at a time
+        int n = read(fd, &b, 1);  // read a char at a time
         if( n==-1) return -1;    // couldn't read
         if( n==0 ) {
             usleep( 10 * 1000 ); // wait 10 msec try again
             continue;
         }
-        buf[i] = b[0]; i++;
-    } while( b[0] != until );
+        // check i for overflow
+        buf[i] = b; i++;
+    } while( b != until );
 
     buf[i] = 0;  // null terminate the string
     return 0;
