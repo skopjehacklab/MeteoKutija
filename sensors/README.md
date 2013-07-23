@@ -22,5 +22,7 @@ Sensors:
 
 * MICS5525         CO - analog
 * MG811            CO₂ - analog 6V (op amp?)
+    + http://www.spencerpages.com/wiki/index.php?title=MG811_Carbon_Dioxide_%28CO2%29_Sensor
+
 * RB-Dfr-38        sound sensor - analog
 
