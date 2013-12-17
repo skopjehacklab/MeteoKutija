@@ -6,7 +6,7 @@ Version 1
     RHT-03      3V3÷6V      ÷20mA
     GP2Y1010AU  5V          ÷40mA
     MQ135       5V          ÷160mA
-    MICS5525    5V          ÷40mA
+    MQ-7        5V          ÷70mA
     MG811       6V          200mA
     RB-Dfr-38   5V          10mA
     AtMega-328p 5V          50mA
